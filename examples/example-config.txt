@@ -1,6 +1,7 @@
 TITLE The Game
 AUTHOR Your Name
-MINSIZE 80x48
+HEIGHT 48
+WIDTH 80
 
 PATH 0
 TEXT Welcome to The Game™! What do you do?

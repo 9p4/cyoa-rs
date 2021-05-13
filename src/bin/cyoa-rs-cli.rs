@@ -5,7 +5,7 @@
 use signal_hook::consts::TERM_SIGNALS;
 use signal_hook::flag;
 use std::error::Error;
-use std::sync::atomic::{AtomicBool};
+use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 
 use structopt::StructOpt;
@@ -17,7 +17,6 @@ type Signals =
     signal_hook::iterator::SignalsInfo<signal_hook::iterator::exfiltrator::origin::WithOrigin>;
 
 #[cfg(not(feature = "extended-siginfo"))]
-
 #[derive(StructOpt)]
 struct Cli {
     #[structopt(parse(from_os_str))]
