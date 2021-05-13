@@ -5,13 +5,12 @@
 use signal_hook::consts::TERM_SIGNALS;
 use signal_hook::flag;
 use std::error::Error;
-use std::io::Write;
 use std::sync::atomic::{AtomicBool};
 use std::sync::Arc;
 
 use structopt::StructOpt;
 
-use cyoa::parser;
+use cyoa::fileutils::cyoafile;
 
 #[cfg(feature = "extended-siginfo")]
 type Signals =
@@ -39,7 +38,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let input = std::fs::read_to_string(&args.input)?;
     let mut output = std::fs::File::create(&args.output)?;
 
-    output.write_all(parser::convert(&input).as_bytes())?;
+    cyoafile::compress(&input, &mut output);
 
     Ok(())
 }

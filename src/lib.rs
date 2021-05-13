@@ -2,6 +2,10 @@
 // Licensed under the MIT license (see LICENSE or https://opensource.org/licenses/MIT)
 
 // TODO: Docs
+//
+
+pub mod fileutils;
+pub use crate::fileutils as futils;
 
 mod game {
     struct Config {
@@ -9,11 +13,21 @@ mod game {
         author: String,
         minwidth: u16,
         minheight: u16,
+        paths: Vec<Path>,
     }
     
     impl Config {
-        pub fn getAuthor() -> str {
-            
+        pub fn get_author(&self) -> String {
+            self.author.clone()
+        }
+        pub fn get_title(&self) -> String {
+            self.title.clone()
+        }
+        pub fn get_minwidth(&self) -> u16 {
+            self.minwidth
+        }
+        pub fn get_minheight(&self) -> u16 {
+            self.minheight
         }
     }
 
@@ -35,12 +49,13 @@ mod game {
     }
 
     pub mod parser {
-        pub fn parse(config: &String) {} // Parse compressed game config file
+        pub fn parse(config: &String) {
+        } // Parse compressed game config file
 
         // Convert text file into compressed game config file
         pub fn convert(text: &String) -> String {
             for line in text.lines() {
-                // a
+                
             }
             "aaa".to_string()
         }
