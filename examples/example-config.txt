@@ -1,0 +1,32 @@
+TITLE The Game
+AUTHOR Your Name
+MINSIZE 80x48
+
+PATH 0
+TEXT Welcome to The Game™! What do you do?
+OPTIONS
+GOTO 1 Go to the next path
+GOTO 2 Do something else
+GOTO 3 Do something different
+GOTO 4 Something entirely different
+END
+
+PATH 1
+TEXT You picked an option! Wow!
+OPTIONS
+GOTO 3 Go to the next path
+END
+
+PATH 2
+TEXT This was a bad idea. You might wanna go back...
+OPTIONS
+GOTO 4 I fear no man
+END
+
+PATH 3
+TEXT Nice job! You got the win thing!
+END
+
+PATH 4
+TEXT I warned you! You lose...
+END
