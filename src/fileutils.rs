@@ -11,7 +11,6 @@ pub mod cyoafile {
                 Some(i) => i,
                 None => continue,
             };
-            println!("Command: {}", command);
             match command {
                 "END" => byte = 0b0001,
                 "GOTO" => {
@@ -35,38 +34,54 @@ pub mod cyoafile {
                         Some(i) => Some(i.parse().expect("Expected number after OPTION")),
                         None => panic!("Expected number after OPTION"),
                     };
-                    instruction.next();
                     text = Some(instruction.collect::<Vec<&str>>().join(" "));
                 }
                 "QUIT" => {
                     byte = 0b0110;
-                    instruction.next();
-                    text = Some(instruction.collect::<Vec<&str>>().join(" "));
                 }
                 "AUTHOR" => {
                     byte = 0b1001;
-                    instruction.next();
                     text = Some(instruction.collect::<Vec<&str>>().join(" "));
                 }
                 "TEXT" => {
                     byte = 0b1010;
-                    instruction.next();
                     text = Some(instruction.collect::<Vec<&str>>().join(" "));
-                    param = Some(&text.unwrap().len() as u16);
                 }
-                "TITLE" => byte = 0b1011,
-                "WIDTH" => byte = 0b1100,
-                "HEIGHT" => byte = 0b1101,
+                "TITLE" => {
+                    byte = 0b1011;
+                    text = Some(instruction.collect::<Vec<&str>>().join(" "));
+                }
+                "WIDTH" => {
+                    byte = 0b1100;
+                    param = match instruction.next() {
+                        Some(i) => Some(i.parse().expect("Expected number after PATH")),
+                        None => panic!("Expected number after PATH"),
+                    };
+                }
+                "HEIGHT" => {
+                    byte = 0b1101;
+                    param = match instruction.next() {
+                        Some(i) => Some(i.parse().expect("Expected number after PATH")),
+                        None => panic!("Expected number after PATH"),
+                    };
+                }
                 _ => panic!("Unknown command {}", command),
             };
-            println!("Command: {}", command);
-            if let Some(value) = param {
-                println!("Param: {}", value);
-            }
-            if let Some(value) = text {
-                println!("Text: {}", value);
-            }
             output.write(&[byte]);
+            if let Some(value) = param {
+                // Split the one u16 into two u8-s
+                output.write(&convert_u16_to_two_u8s_be(value as u16));
+            }
+            if let Some(value) = &text {
+                output.write(&[0b1010]);
+                let length = value.len();
+                output.write(&convert_u16_to_two_u8s_be(length as u16));
+                output.write(value.as_bytes());
+            }
         }
+    }
+
+    fn convert_u16_to_two_u8s_be(integer: u16) -> [u8; 2] {
+        [(integer >> 8) as u8, integer as u8]
     }
 }
