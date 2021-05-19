@@ -1,12 +1,14 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
 #[derive(Serialize, Deserialize)]
 pub struct PathOpt {
     jump: u16,
     text: String,
 }
 
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
 impl PathOpt {
     /// Gets the place where the path is meant to jump
     pub fn get_jump(&self) -> u16 {
@@ -18,12 +20,14 @@ impl PathOpt {
     }
 }
 
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
 #[derive(Serialize, Deserialize)]
 pub struct Path {
     text: String,
     options: Vec<PathOpt>,
 }
 
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
 impl Path {
     /// Gets the text for the path
     pub fn get_text(&self) -> &String {
@@ -35,6 +39,7 @@ impl Path {
     }
 }
 
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
 #[derive(Serialize, Deserialize)]
 pub struct Game {
     name: String,
@@ -43,6 +48,7 @@ pub struct Game {
     paths: HashMap<u16, Path>,
 }
 
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
 impl Game {
     /// Getter for the name of the game
     pub fn get_name(&self) -> &String {

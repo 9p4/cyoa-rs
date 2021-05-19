@@ -9,7 +9,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let path = &args[1];
     let contents = fs::read_to_string(path).expect("Something went wrong reading the game config");
-    let mut game = cyoa::load(&contents);
+    let mut game = cyoa::Game::new(&contents);
     println!("Done!");
 
     // Print intro page

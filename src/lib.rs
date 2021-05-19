@@ -4,13 +4,15 @@ mod datastruct;
 use crate::datastruct::Path;
 
 /// The "State" of the game, including config, current path, and history
-pub struct State {
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
+pub struct Game {
     pub config: datastruct::Game,
     current_path: u16,
     history: Vec<u16>,
 }
 
-impl State {
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
+impl Game {
     /// Sets the game state and history to something else based on user interaction
     pub fn jump(&mut self, path: u16) {
         if !self.config.check_path(&path) {
@@ -47,12 +49,12 @@ impl State {
             self.current_path = *prev;
         }
     }
-}
-/// Loads the game and returns a new State
-pub fn load(data: &String) -> State {
-    State {
-        config: serde_json::from_str(data).unwrap(),
-        current_path: 0,
-        history: Vec::<u16>::new(),
+    /// Loads the game and returns a new State
+    pub fn new(data: &String) -> Game {
+        Game {
+            config: serde_json::from_str(data).unwrap(),
+            current_path: 0,
+            history: Vec::<u16>::new(),
+        }
     }
 }

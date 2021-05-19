@@ -1,6 +1,6 @@
 [package]
 name = "cyoa"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Sambhav Saggi <17993169+sambhavsaggi@users.noreply.github.com>"]
 edition = "2018"
 description = "A Crate to facilitate the creation of Choose-Your-Own-Adventure games in a text-based format"
@@ -8,7 +8,6 @@ readme = "README.md"
 homepage = "https://github.com/sambhavsaggi/cyoa-rs"
 repository = "https://github.com/sambhavsaggi/cyoa-rs"
 license = "MIT"
-license-file = "LICENSE"
 keywords = ["gamedev", "adventure"]
 categories = ["game-development"]
 include = ["src/**/*", "Cargo.toml"]
@@ -19,3 +18,8 @@ publish = true
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+web-sys = "0.3"
