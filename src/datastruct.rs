@@ -8,9 +8,11 @@ pub struct PathOpt {
 }
 
 impl PathOpt {
+    /// Gets the place where the path is meant to jump
     pub fn get_jump(&self) -> u16 {
         self.jump
     }
+    /// Gets the text for the option
     pub fn get_text(&self) -> &String {
         &self.text
     }
@@ -23,9 +25,11 @@ pub struct Path {
 }
 
 impl Path {
+    /// Gets the text for the path
     pub fn get_text(&self) -> &String {
         &self.text
     }
+    /// Returns the options available for the path
     pub fn get_options(&self) -> &Vec<PathOpt> {
         &self.options
     }
@@ -40,24 +44,23 @@ pub struct Game {
 }
 
 impl Game {
+    /// Getter for the name of the game
     pub fn get_name(&self) -> &String {
         &self.name
     }
+    /// Getter for the author of the game
     pub fn get_author(&self) -> &String {
         &self.author
     }
+    /// Getter for the slug of the game
     pub fn get_slug(&self) -> &String {
         &self.slug
     }
+    /// Getter for an arbitrary path
     pub fn get_path(&self, id: u16) -> &Path {
         &self.paths.get(&id).unwrap()
     }
-    pub fn get_path_text(&self, path: &u16) -> &String {
-        &self.paths.get(path).unwrap().text
-    }
-    pub fn get_path_opt(&self, path: &u16) -> &Vec<PathOpt> {
-        &self.paths.get(path).unwrap().options
-    }
+    /// Checks to make sure that a path exists
     pub fn check_path(&self, path: &u16) -> bool {
         self.paths.contains_key(path)
     }
