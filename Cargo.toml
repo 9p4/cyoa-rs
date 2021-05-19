@@ -12,7 +12,7 @@ license-file = "LICENSE"
 keywords = ["gamedev", "adventure"]
 categories = ["game-development"]
 include = ["src/**/*", "Cargo.toml"]
-publish = ["crates.io"]
+publish = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
