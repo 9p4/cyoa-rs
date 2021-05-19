@@ -4,17 +4,15 @@ mod datastruct;
 use crate::datastruct::Path;
 
 /// The "State" of the game, including config, current path, and history
-#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
-pub struct Game {
+pub struct State {
     pub config: datastruct::Game,
-    current_path: u16,
-    history: Vec<u16>,
+    current_path: usize,
+    history: Vec<usize>,
 }
 
-#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
-impl Game {
+impl State {
     /// Sets the game state and history to something else based on user interaction
-    pub fn jump(&mut self, path: u16) {
+    pub fn jump(&mut self, path: usize) {
         if !self.config.check_path(&path) {
             panic!("Path doesn't exist");
         }
@@ -37,7 +35,7 @@ impl Game {
     pub fn import_save(&mut self, save: &String) {
         self.history.clear();
         for item in save.split(",") {
-            self.history.push(item.parse::<u16>().unwrap());
+            self.history.push(item.parse::<usize>().unwrap());
         }
     }
 
@@ -50,11 +48,11 @@ impl Game {
         }
     }
     /// Loads the game and returns a new State
-    pub fn new(data: &String) -> Game {
-        Game {
+    pub fn new(data: &String) -> State {
+        State {
             config: serde_json::from_str(data).unwrap(),
             current_path: 0,
-            history: Vec::<u16>::new(),
+            history: Vec::<usize>::new(),
         }
     }
 }
