@@ -20,18 +20,22 @@ fn main() {
     // Main loop
     loop {
         // Print the text
-        println!("{}", game.config.get_path_text(&game.get_path()));
+        println!("{}", game.get_path().get_text());
         println!("What do you do?");
-        for option in game.config.get_path_opt(&game.get_path()) {
-            println!("{}", option.text);
+        let mut count = 1;
+        for option in game.get_path().get_options() {
+            println!("{}: {}", count, option.get_text());
+            count+=1;
         }
         let mut selection = String::new();
 
+        // Read and jump
         io::stdin()
             .read_line(&mut selection)
             .expect("Failed to read line");
 
         let selection: u16 = selection.trim().parse().expect("Please type a number!");
-        game.goto(game.config.get_path_opt(&game.get_path())[(selection - 1) as usize].jump)
+        let jump = game.get_path().get_options()[(selection-1) as usize].get_jump();
+        game.jump(jump)
     }
 }

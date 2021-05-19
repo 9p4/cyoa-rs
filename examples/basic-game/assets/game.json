@@ -11,6 +11,15 @@
           "text": "go to the next page"
         }
       ]
+    },
+    "1": {
+      "text": "Another path! How nice.",
+      "options": [
+        {
+          "jump": 0,
+          "text": "go back to the other page, I guess"
+        }
+      ]
     }
   }
 }

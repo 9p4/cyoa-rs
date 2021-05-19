@@ -1,4 +1,5 @@
 mod datastruct;
+use crate::datastruct::Path;
 
 pub struct State {
     pub config: datastruct::Game,
@@ -7,13 +8,16 @@ pub struct State {
 }
 
 impl State {
-    pub fn goto(&mut self, path: u16) {
+    pub fn jump(&mut self, path: u16) {
+        if !self.config.check_path(&path) {
+            panic!("Path doesn't exist");
+        }
         self.current_path = path;
         self.history.push(path)
     }
 
-    pub fn get_path(&self) -> u16 {
-        self.current_path
+    pub fn get_path(&self) -> &Path {
+        &self.config.get_path(self.current_path)
     }
 
     // TODO: Implement
@@ -21,8 +25,12 @@ impl State {
         String::new()
     }
 
-    // TODO: Implement
-    pub fn import_save(&mut self, save: &String) {}
+    pub fn import_save(&mut self, save: &String) {
+        self.history.clear();
+        for item in save.split(",") {
+            self.history.push(item.parse::<u16>().unwrap());
+        }
+    }
 
     // Expensive but I don't expect it to be used much, so it's probably fine
     pub fn backtrack(&mut self) {
