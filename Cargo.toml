@@ -1,6 +1,6 @@
 [package]
 name = "cyoa"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Sambhav Saggi <17993169+sambhavsaggi@users.noreply.github.com>"]
 edition = "2018"
 description = "A Crate to facilitate the creation of Choose-Your-Own-Adventure games in a text-based format"

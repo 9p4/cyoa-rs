@@ -60,6 +60,10 @@ impl Game {
     pub fn get_path(&self, id: usize) -> &Path {
         &self.paths.get(&id).unwrap()
     }
+    /// Gets the size of the game (in pages)
+    pub fn get_path_len(&self) -> usize {
+        self.paths.len()
+    }
     /// Checks to make sure that a path exists
     pub fn check_path(&self, path: &usize) -> bool {
         self.paths.contains_key(path)
