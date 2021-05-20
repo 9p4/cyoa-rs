@@ -1,9 +1,11 @@
 //! A Crate to facilitate the creation of Choose-Your-Own-Adventure games in a text-based format
 
-mod datastruct;
+pub mod datastruct;
 use crate::datastruct::Path;
+use serde::{Deserialize, Serialize};
 
 /// The "State" of the game, including config, current path, and history
+#[derive(Serialize, Deserialize)]
 pub struct State {
     pub config: datastruct::Game,
     current_path: usize,
@@ -23,6 +25,11 @@ impl State {
     /// Gets the current path the game is on
     pub fn get_path(&self) -> &Path {
         &self.config.get_path(self.current_path)
+    }
+
+    /// Gets the current position (page number)
+    pub fn get_path_id(&self) -> usize {
+        self.current_path
     }
 
     // TODO: Implement
